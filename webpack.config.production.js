@@ -4,10 +4,19 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
 
+const cssModulesName = '[hash:base64:6]';
+const context = path.resolve(__dirname, 'src');
+
 module.exports = {
+  context,
   entry: {
-    vendor: ['react', 'react-dom', 'react-router'],
-    app: ['babel-polyfill', './src/index']
+    vendor: [
+      'react',
+      'react-dom',
+      'mobx',
+      'core-js',
+    ],
+    app: ['babel-polyfill', './index']
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -18,12 +27,12 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   module: {
     rules: [
-      // {
-      //   enforce: 'pre',
-      //   test: /\.jsx?$/,
-      //   include: path.join(__dirname, 'src'),
-      //   loader: 'eslint-loader',
-      // },
+      {
+        enforce: 'pre',
+        test: /\.jsx?$/,
+        include: path.join(__dirname, 'src'),
+        loader: 'eslint-loader'
+      },
       {
         test: /\.jsx?$/,
         include: path.join(__dirname, 'src'),
@@ -33,7 +42,18 @@ module.exports = {
           plugins: [
             'transform-async-to-generator',
             'transform-decorators-legacy',
-            'transform-react-constant-elements'
+            'transform-react-constant-elements',
+            [
+              'react-css-modules',
+              {
+                context,
+                webpackHotModuleReloading: true,
+                generateScopedName: cssModulesName,
+                filetypes: {
+                  '.scss': 'postcss-scss'
+                }
+              }
+            ]
           ]
         }
       },
@@ -48,7 +68,10 @@ module.exports = {
                 sourceMap: false,
                 minimize: {
                   sourcemap: false
-                }
+                },
+                importLoaders: 3,
+                modules: true,
+                localIdentName: cssModulesName
               }
             },
             'postcss-loader',
@@ -56,8 +79,7 @@ module.exports = {
             {
               loader: 'sass-loader',
               options: {
-                sourceMap: true,
-                sourceMapContents: true,
+                sourceMap: false
               }
             }
           ]
@@ -91,6 +113,16 @@ module.exports = {
       }
     ]
   },
+  resolve: {
+    alias: {
+      'sass-component': path.resolve(
+        __dirname,
+        'src',
+        'sass',
+        '_component-base.scss'
+      )
+    }
+  },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
@@ -102,6 +134,11 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      children: true,
+      async: true,
+      minChunks: 2
     }),
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,
@@ -120,7 +157,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       hash: false,
-      template: './src/index.html'
+      template: './index.html'
     }),
     new PreloadWebpackPlugin()
   ]

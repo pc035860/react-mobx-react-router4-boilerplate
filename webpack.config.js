@@ -1,15 +1,18 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const PreloadWebpackPlugin = require('preload-webpack-plugin');
+
+const cssModulesName = '[name]__[local]___[hash:base64:5]';
+const context = path.resolve(__dirname, 'src');
 
 module.exports = {
+  context,
   entry: [
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://0.0.0.0:3000',
     'webpack/hot/only-dev-server',
     'babel-polyfill',
-    './src/index'
+    './index'
   ],
   devServer: {
     hot: true,
@@ -25,15 +28,16 @@ module.exports = {
     publicPath: '/',
     filename: 'app.[hash].js'
   },
-  devtool: 'eval',
+  devtool: 'cheap-module-eval-source-map',
+  // devtool: 'source-map',
   module: {
     rules: [
-      // {
-      //   enforce: 'pre',
-      //   test: /\.jsx?$/,
-      //   include: path.join(__dirname, 'src'),
-      //   loader: 'eslint-loader',
-      // },
+      {
+        enforce: 'pre',
+        test: /\.jsx?$/,
+        include: path.join(__dirname, 'src'),
+        loader: 'eslint-loader',
+      },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -42,7 +46,15 @@ module.exports = {
           presets: [['es2015', { modules: false }], 'stage-0', 'react'],
           plugins: [
             'transform-async-to-generator',
-            'transform-decorators-legacy'
+            'transform-decorators-legacy',
+            ['react-css-modules', {
+              context,
+              webpackHotModuleReloading: true,
+              generateScopedName: cssModulesName,
+              filetypes: {
+                '.scss': 'postcss-scss'
+              }
+            }]
           ]
         }
       },
@@ -50,10 +62,24 @@ module.exports = {
         test: /\.scss|css$/,
         use: [
           'style-loader',
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              importLoaders: 3,
+              modules: true,
+              localIdentName: cssModulesName
+            }
+          },
           'postcss-loader',
           'resolve-url-loader',
-          'sass-loader?sourceMap'
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+              sourceMapContents: true,
+            }
+          }
         ]
       },
       {
@@ -84,11 +110,14 @@ module.exports = {
       }
     ]
   },
+  resolve: {
+    alias: {
+      'sass-component': path.resolve(__dirname, 'src', 'sass', '_component-base.scss')
+    }
+  },
   plugins: [
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({ hash: false, template: './src/index.html' }),
-    // new PreloadWebpackPlugin()
-    // new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /nb/)
+    new HtmlWebpackPlugin({ hash: false, template: './index.html' }),
   ]
 };

@@ -1,0 +1,33 @@
+$font-serif: "PT Serif", Georgia, "Times New Roman", "Microsoft JhengHei", "微軟正黑體", serif;
+$font-sans-serif: Lato, "Hiragino Sans GB", "Microsoft JhengHei", "微軟正黑體", Helvetica, Arial, sans-serif;
+$font-mono: Menlo, Monaco, Consolas, "Courier New", monospace;
+
+$rem-baseline: 16px;
+
+$mq-lg: "only screen and (min-width: 1200px)";
+$mq-large: $mq-lg;
+$mq-md: "only screen and (max-width: 991px)";
+$mq-medium: $mq-md;
+$mq-sm: "only screen and (min-width: 768px)";
+$mq-small: $mq-sm;
+$mq-xs: "only screen and (max-width: 767px)";
+
+$navbar-height: 50px;
+$navbar-logo-height: 40px;
+$navbar-photo-height: $navbar-logo-height - 10px;
+
+$edit-highlight-panel-width: (
+	default: 200px,
+	md: 140px
+);
+$vod-highlights-width: (
+	default: 340px
+);
+
+$color-twitch: #6441a4;
+
+$color-base-1: #65B3BF;
+$color-base-2: #268A99;
+$color-base-3: #A5FFD9;
+$color-base-4: #FFE4E4;
+$color-base-5: #CC6F9C;

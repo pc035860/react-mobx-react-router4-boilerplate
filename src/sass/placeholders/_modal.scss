@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+%modal-react-modal-overlay-animation {
+	&.ReactModal__Overlay {
+		opacity: 0;
+
+		&--after-open {
+			transition: opacity .3s easing(circOut);
+			opacity: 1;
+		}
+		&--before-close {
+			opacity: 0;
+		}
+	}
+}
+
+%modal-react-modal-content-animation {
+	&.ReactModal__Content {
+		&--after-open {
+			animation: zoomIn .3s both easing(circOut);
+		}
+		&--before-close {
+			animation: zoomOut .3s both easing(circIn);
+		}
+	}
+}

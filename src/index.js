@@ -9,8 +9,6 @@ import { isProduction } from './utils/constants';
 import App from './components/TestApp';
 import initStores from './stores/initStores';
 
-import './styles/main.scss';
-
 initStores();
 const store = rehydrate();
 

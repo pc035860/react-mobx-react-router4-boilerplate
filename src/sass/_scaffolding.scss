@@ -1,0 +1,19 @@
+html {
+	font-size: $rem-baseline !important;
+
+	@media #{$mq-xs} {
+		font-size: 90% !important;
+	}
+}
+
+body {
+	// overflow-x: hidden;
+	// overflow-y: scroll;
+	font-family: $font-sans-serif;
+	touch-action: manipulation;
+}
+
+#app {
+	// min-width: $site-min-width;
+	-webkit-font-smoothing: antialiased;
+}

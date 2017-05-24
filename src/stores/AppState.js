@@ -1,5 +1,5 @@
-import { observable, action } from "mobx";
-import axios from "axios";
+import { observable, action } from 'mobx';
+import axios from 'axios';
 
 export default class AppState {
   @observable authenticated;
@@ -15,15 +15,22 @@ export default class AppState {
     this.items = [];
     this.item = {};
 
-    this.testval = "Cobbled together by ";
+    this.testval = 'Cobbled together by ';
   }
 
   async fetchData(pathname, id) {
-    let { data } = await axios.get(
+    const { data } = await axios.get(
       `https://jsonplaceholder.typicode.com${pathname}`
     );
     console.log(data);
-    data.length > 0 ? this.setData(data) : this.setSingle(data);
+
+    if (data.length > 0) {
+      this.setData(data);
+    }
+    else {
+      this.setSingle(data);
+    }
+    return data.length === 1;
   }
 
   @action setData(data) {
