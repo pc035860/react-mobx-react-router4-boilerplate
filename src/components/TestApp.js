@@ -3,40 +3,11 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { computed, action } from 'mobx';
 
-import { Route, Link } from 'react-router-dom';
-
-import LazyRoute from 'lazy-route';
+import { Link } from 'react-router-dom';
+import MobxDevTools from './MobxDevTools';
 
 // import DevTools from 'mobx-react-devtools';
 import './TestApp.scss';
-
-const wrapDebug = C => (
-  class extends Component {
-    render() {
-      return (
-        <Route
-          path="/"
-          render={(props) => {
-            if (!props.match) {
-              return null;
-            }
-
-            return (
-              /debug=1/.test(props.location.search) ? <C {...props} /> : null
-            );
-          }}
-        />
-      );
-    }
-  }
-);
-
-const DevTools = wrapDebug(props => (
-  <LazyRoute
-    {...props}
-    component={import('mobx-react-devtools')}
-  />
-));
 
 @observer(['store'])
 class App extends Component {
@@ -79,7 +50,7 @@ class App extends Component {
     const { counter, appState } = this;
     return (
       <div styleName="self">
-        <DevTools />
+        <MobxDevTools />
         <button type="button" onClick={() => counter.inc()} styleName="test">
           {this.betterCount}
         </button>
@@ -89,7 +60,7 @@ class App extends Component {
         }
         <hr  />
         <button type="button" onClick={this.handleLoadItemsClick}>load items</button>
-        <Link to="/?debug=1">See debug</Link>
+        <Link to="/?debug">See debug</Link>
       </div>
     );
   }

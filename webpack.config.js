@@ -112,6 +112,10 @@ module.exports = {
   },
   resolve: {
     alias: {
+      _utils: path.join(context, 'utils'),
+      _components: path.join(context, 'components'),
+      _hocs: path.join(context, 'hocs'),
+      _app: context,
       'sass-component': path.resolve(__dirname, 'src', 'sass', '_component-base.scss')
     }
   },

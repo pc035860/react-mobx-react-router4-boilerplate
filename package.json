@@ -66,6 +66,7 @@
     "mobx-react": "^3.5.7",
     "mobx-react-devtools": "^4.2.6",
     "prop-types": "^15.5.10",
+    "query-string": "^4.3.4",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-router-dom": "latest",
