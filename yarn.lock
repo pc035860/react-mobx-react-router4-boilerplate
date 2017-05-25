@@ -5333,7 +5333,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10:
+prop-types@^15.5.10, prop-types@^15.5.4:
   version "15.5.10"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
   dependencies:
@@ -5389,14 +5389,7 @@ qs@~6.3.0:
   version "6.3.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.3.1.tgz#918c0b3bcd36679772baf135b1acb4c1651ed79d"
 
-query-string@^4.1.0:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/query-string/-/query-string-4.3.2.tgz#ec0fd765f58a50031a3968c2431386f8947a5cdd"
-  dependencies:
-    object-assign "^4.1.0"
-    strict-uri-encode "^1.0.0"
-
-query-string@^4.3.4:
+query-string@^4.1.0, query-string@^4.3.4:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-4.3.4.tgz#bbb693b9ca915c232515b228b1a02b609043dbeb"
   dependencies:
@@ -5610,6 +5603,14 @@ redbox-react@^1.2.5:
   dependencies:
     error-stack-parser "^1.3.6"
     object-assign "^4.0.1"
+
+redbox-react@^1.3.6:
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/redbox-react/-/redbox-react-1.3.6.tgz#70314c57c066257eb70b0a24dc794b5cef4f1c4e"
+  dependencies:
+    error-stack-parser "^1.3.6"
+    object-assign "^4.0.1"
+    prop-types "^15.5.4"
 
 redent@^1.0.0:
   version "1.0.0"

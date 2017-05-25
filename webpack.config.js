@@ -28,8 +28,8 @@ module.exports = {
     publicPath: '/',
     filename: 'app.[hash].js'
   },
-  devtool: 'cheap-module-eval-source-map',
-  // devtool: 'source-map',
+  // devtool: 'cheap-module-eval-source-map',
+  devtool: 'source-map',
   module: {
     rules: [
       {

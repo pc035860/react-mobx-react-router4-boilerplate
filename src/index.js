@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 import { AppContainer } from 'react-hot-loader';
 import { rehydrate, hotRehydrate } from 'rfx-core';
+import AppErrorReporter from '_components/AppErrorReporter';
 
 import { isProduction } from './utils/constants';
 import App from './components/TestApp';
@@ -14,7 +15,7 @@ const store = rehydrate();
 
 const renderApp = (Component) => {
   render(
-    <AppContainer>
+    <AppContainer errorReporter={AppErrorReporter}>
       <Router>
         <Provider store={isProduction ? store : hotRehydrate()}>
           <App />
